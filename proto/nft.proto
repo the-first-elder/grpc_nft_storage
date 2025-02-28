@@ -1,0 +1,42 @@
+syntax = "proto3";
+import public "google/protobuf/empty.proto";
+package nft;
+
+
+service NftService {
+  rpc StoreMetadata(MetadataRequest) returns (MetadataResponse);
+  rpc GetMetadata(TokenId) returns (MetadataResponse);
+  rpc UpdateMetadata(MetadataUpdateRequest) returns (MetadataResponse);
+  rpc DeleteMetadata(TokenId) returns (google.protobuf.Empty);
+  rpc ListAllMetadata(google.protobuf.Empty) returns (MetadataListResponse);
+}
+
+message MetadataRequest {
+  string name = 1;
+  string description = 2;
+  string image_uri = 3;
+  map<string, string> attributes = 4;
+}
+
+message MetadataResponse {
+  string name = 1;
+  string description = 2;
+  string image_uri = 3;
+  map<string, string> attributes = 4;
+}
+
+message TokenId {
+  string id = 1;
+}
+
+message MetadataUpdateRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string image_uri = 4;
+  map<string, string> attributes = 5;
+}
+
+message MetadataListResponse {
+  repeated MetadataResponse metadata = 1;
+}
